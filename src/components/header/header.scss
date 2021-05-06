@@ -1,0 +1,28 @@
+@import '../../helpers/style-colors.scss';
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 22px;
+    background-color: $background-color-base;
+
+    &__logo {
+        font-size: 18px;
+        line-height: 28px;
+        color: $heading-color;
+    }
+    &__sign-btn {
+        width: 110px;
+        height: 50px;
+        font-size: 18px;
+        line-height: 28px;
+        background-color: $background-color-base;
+        cursor: pointer
+    }
+    .sing-btn--success {
+        color: $success-color;
+        border: 1px solid $success-color;
+        box-sizing: border-box;
+        border-radius: 5px;
+    }
+}

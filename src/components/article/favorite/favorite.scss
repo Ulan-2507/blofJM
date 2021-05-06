@@ -1,0 +1,13 @@
+@import '../../../helpers/style-colors';
+
+.favorite {
+    background: none;
+    cursor: pointer;
+
+    & span {
+        margin-right: 5px;
+    }
+    &__count {
+        vertical-align: text-bottom;
+    }
+}
