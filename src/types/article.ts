@@ -29,3 +29,28 @@ export interface ArticlesState {
   isLoading: boolean;
   error: null | string;
 }
+
+export interface ICreateArticle {
+  article: {
+    title: string;
+    description: string;
+    body: string;
+    tagList?: string[];
+  };
+}
+
+export interface IUpdateArticle {
+  article: {
+    title?: string;
+    description?: string;
+    body?: string;
+  };
+}
+
+export interface IComment {
+  comment: {
+    body: string;
+  };
+}
+
+export type TArticleFormData = ICreateArticle | IComment | IUpdateArticle;

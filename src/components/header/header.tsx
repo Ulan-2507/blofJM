@@ -1,18 +1,26 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import { RouteURLS } from "../../helpers/route-urls";
+import { useAppSelector } from "../../hooks/useAppSelelctor";
+import FormLinks from "./from-links";
 import "./header.scss";
+import ProfileMenu from "./profile-menu";
 
 const Header: React.FC = () => {
+  const pageSize = useAppSelector((state) => state.articles.pageSize);
+  const page = useAppSelector((state) => state.articles.page);
+  const isAuth = useAppSelector((state) => state.user.isAuth);
+
   return (
     <header className="header">
-      <div className="header__logo">Realworld Blog</div>
-      <div>
-        <button className="header__sign-btn" type="button">
-          Sign In
-        </button>
-        <button className="header__sign-btn" type="button">
-          Sign Up
-        </button>
-      </div>
+      <NavLink
+        className="header__logo"
+        to={`${RouteURLS.ARTICLES}?limit=${pageSize}&page=${page}`}
+      >
+        Realworld Blog
+      </NavLink>
+
+      {isAuth ? <ProfileMenu /> : <FormLinks />}
     </header>
   );
 };
