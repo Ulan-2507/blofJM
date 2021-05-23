@@ -10,4 +10,15 @@
     &__count {
         vertical-align: text-bottom;
     }
+    &__icon {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-image: url('../../../img/heard.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
+.favorited .favorite__icon {
+    background-image: url('../../../img/heard-red.svg');
 }

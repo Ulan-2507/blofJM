@@ -49,8 +49,9 @@ body {
   background-color: $Background;
 }
 .main {
-	margin: 0 auto 25px;
-	width: 880px;
+	margin: 100px auto 25px;
+	padding: 0 10px;
+	max-width: 880px;
 	height: 940px;
 }
 .pagination {
