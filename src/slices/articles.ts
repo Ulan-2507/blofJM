@@ -8,6 +8,9 @@ const initialState = {
   pageSize: 5,
   isLoading: false,
   error: null,
+  isSending: false,
+  success: false,
+  isEdit: false,
 } as ArticlesState;
 
 const articlesSlice = createSlice({
@@ -32,6 +35,15 @@ const articlesSlice = createSlice({
     setError(state, action: PayloadAction<string>) {
       state.error = action.payload;
     },
+    setSending(state, action: PayloadAction<boolean>) {
+      state.isSending = action.payload;
+    },
+    setSuccess(state, action: PayloadAction<boolean>) {
+      state.success = action.payload;
+    },
+    setEdit(state, action: PayloadAction<boolean>) {
+      state.isEdit = action.payload;
+    },
   },
 });
 
@@ -42,5 +54,8 @@ export const {
   setError,
   setArticle,
   setPageSize,
+  setSending,
+  setSuccess,
+  setEdit,
 } = articlesSlice.actions;
 export default articlesSlice.reducer;
