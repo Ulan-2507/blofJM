@@ -1,7 +1,7 @@
 import React from "react";
 import cn from "classnames";
 import "./favorite.scss";
-import { favorite, unfavorite } from "../../../handlers/article";
+import { favorite, unfavorite } from "../../../api/article";
 import { useAppSelector } from "../../../hooks/useAppSelelctor";
 import { useActions } from "../../../hooks/useActions";
 import { IArticle } from "../../../types/article";

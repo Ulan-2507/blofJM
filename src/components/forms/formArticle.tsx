@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { createArticle } from "../../handlers/article";
+import { createArticle } from "../../api/article";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
 import FormField from "./formField";
 import FormWrapper from "./formWrapper";

@@ -6,7 +6,7 @@ import FormField from "./formField";
 import FormWrapper from "./formWrapper";
 import { Schema } from "../../helpers/validation-ruls";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
-import { registerUser } from "../../handlers/user";
+import { registerUser } from "../../api/user";
 
 interface FormData {
   username: string;

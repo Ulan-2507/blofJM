@@ -9,7 +9,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { RouteURLS } from "../../helpers/route-urls";
 import Favorited from "./favorite";
 import Modal from "../modal-window";
-import { deleteArticle } from "../../handlers/article";
+import { deleteArticle } from "../../api/article";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
 import { useActions } from "../../hooks/useActions";
 

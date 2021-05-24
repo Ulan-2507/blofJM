@@ -13,7 +13,7 @@ import SignIn from "../forms/formSignIn";
 import Profile from "../forms/formProfile";
 import ArticleForm from "../forms/formArticle";
 
-import { getCurrentUser } from "../../handlers/user";
+import { getCurrentUser } from "../../api/user";
 import { getToken } from "../../api";
 
 const App: React.FC = () => {
