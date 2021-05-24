@@ -10,3 +10,4 @@
 Проверяем отсутствие ошибок линтера
 Заливаем на Vercel
 Ссылку размещаем в README
+https://blog-jm-three.vercel.app/
