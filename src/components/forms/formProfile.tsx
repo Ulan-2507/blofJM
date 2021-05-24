@@ -5,7 +5,7 @@ import FormField from "./formField";
 import FormWrapper from "./formWrapper";
 import { Schema } from "../../helpers/validation-ruls";
 import { IUserUpdateData } from "../../types/user";
-import { updateUser } from "../../handlers/user";
+import { updateUser } from "../../api/user";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
 
 const Profile: React.FC = () => {

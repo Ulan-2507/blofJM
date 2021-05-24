@@ -3,7 +3,7 @@ import "antd/dist/antd.css";
 import { Pagination } from "antd";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
 import { useActions } from "../../hooks/useActions";
-import { getArticles } from "../../handlers/article";
+import { getArticles } from "../../api/article";
 import { RouteURLS } from "../../helpers/route-urls";
 import { useHistory } from "react-router-dom";
 

@@ -6,7 +6,7 @@ import FormField from "./formField";
 import FormWrapper from "./formWrapper";
 import { Schema } from "../../helpers/validation-ruls";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
-import { login } from "../../handlers/user";
+import { login } from "../../api/user";
 import { IUserAuthData } from "../../types/user";
 import { useHistory } from "react-router";
 
