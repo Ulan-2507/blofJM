@@ -50,7 +50,7 @@ const Article: React.FC<PropsType> = ({ data, isFull }) => {
   return (
     <div className={cn("article", { "article--isFull": isFull })}>
       <div className="article__header">
-        <div>
+        <div className="article__info">
           <h5 className="article__title">
             <NavLink to={`${RouteURLS.ARTICLES}/${slug}`}>{title}</NavLink>
           </h5>

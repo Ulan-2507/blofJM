@@ -102,13 +102,13 @@ const ArticleForm: React.FC = () => {
           <p className="form__error">{errors?.textarea?.message}</p>
         )}
       </label>
-      <fieldset className="form__tags">
+      <fieldset className="form__tag-list">
         <legend>Tags</legend>
-        <ul className="form__tag-list">
+        <ul>
           {data.map((tag, index) => {
             const name = uuidv4();
             return (
-              <li key={name} className="form__tag-row">
+              <li key={name} className="form__tag">
                 <input
                   className="form__input form__input--tag"
                   type="text"

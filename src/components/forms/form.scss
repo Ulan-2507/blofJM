@@ -106,7 +106,7 @@
     &__error {
         color: $error-color;
     }
-    &__tag-row {
+    &__tag {
         display: flex;
         align-items: center;
         margin-bottom: 5px;
@@ -128,7 +128,7 @@
             color: $primary-color;
         }
     }
-    &__tags {
+    &__tag-list {
         display: flex;
         align-items: flex-end;
         margin: 20px 0;
@@ -140,7 +140,7 @@
             font-size: 14px;
             line-height: 22px;
         }
-        &-list {
+        & ul {
             margin-bottom: 0;
         }
     }

@@ -36,9 +36,34 @@
         color: $success-color;
         border: 1px solid $success-color;
     }
+    &__auth-links {
+        @media (max-width: 560px) { 
+            position: absolute;
+            width: 100%;
+            top: 58px;
+            right: -100%;
+            padding: 15px;
+            flex-direction: column;
+            text-align: center;
+            background-color: #fff;
+            z-index: 9;
+            transition: all .4s ease;
+        }
+    }
     &__profile-menu {
         display: flex;
         align-items: center;
+        @media (max-width: 560px) { 
+            position: absolute;
+            width: 100%;
+            top: 58px;
+            right: -100%;
+            padding: 15px;
+            flex-direction: column;
+            background-color: #fff;
+            z-index: 9;
+            transition: all .4s ease;
+        }
     }
     &__link--create-article {
         margin-right: 25px;
@@ -51,6 +76,12 @@
         &:hover {
             color: $primary-color;
             border-color: $primary-color;
+        }
+        @media (max-width: 560px) { 
+            margin-right: 0;
+            margin-left: 0;
+            margin-bottom: 15px;
+            order: 2;
         }
     }
     &__edit-link {
@@ -74,14 +105,58 @@
             height: 100%;
             object-fit: cover; 
         }
+        @media (max-width: 560px) { 
+            order: 1;
+            margin-bottom: 15px;
+        }
     }
     &__link--log-out {
         margin-left: 25px;
         border-color:  $text-color;
         color: $text-color;
+        @media (max-width: 560px) { 
+            width: 113px;
+            margin-left: 0;
+            margin-bottom: 15px;
+            padding: 6px 10px;
+            font-size: 14px;
+            line-height: 22px;
+            text-align: center;
+            order: 3;
+        }
     }
 }
 .selected {
     color: $success-color;
     border-color: $success-color;
+}
+.open-menu {
+    transform: translateX(-100%);
+}
+.header__menu {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    border: none; 
+    @media (max-width: 560px) { 
+        display: block;
+    }
+}
+.bar1, .bar2, .bar3 {
+    display: block;
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+    transform: rotate(45deg) translate(-8px, -8px);
 }
