@@ -70,7 +70,8 @@ export const deleteArticle = (slug: string): void => {
 
 export const favorite = async (slug: string): Promise<void> => {
   try {
-    await axiosApiInstance.post(`/articles/${slug}/favorite`);
+    const response = await axiosApiInstance.post(`/articles/${slug}/favorite`);
+    store.dispatch(setArticle(response.data.article));
   } catch (error) {
     if (error.response) {
       store.dispatch(setErrorCode(error.response.status));
@@ -81,7 +82,10 @@ export const favorite = async (slug: string): Promise<void> => {
 
 export const unfavorite = async (slug: string): Promise<void> => {
   try {
-    await axiosApiInstance.delete(`/articles/${slug}/favorite`);
+    const response = await axiosApiInstance.delete(
+      `/articles/${slug}/favorite`
+    );
+    store.dispatch(setArticle(response.data.article));
   } catch (error) {
     if (error.response) {
       store.dispatch(setErrorCode(error.response.status));

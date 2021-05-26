@@ -18,7 +18,7 @@ interface FormData {
 
 const SignUp: React.FC = () => {
   const serverErrors = useAppSelector((state) => state.user.errors);
-  const isFetch = useAppSelector((state) => state.user.isFetch);
+  const { isFetch } = useAppSelector((state) => state.user);
   const {
     register,
     handleSubmit,

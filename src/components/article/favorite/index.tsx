@@ -1,10 +1,9 @@
 import React from "react";
 import cn from "classnames";
 import "./favorite.scss";
-import { favorite, unfavorite } from "../../../api/article";
+import { favorite, getArticles, unfavorite } from "../../../api/article";
 import { useAppSelector } from "../../../hooks/useAppSelelctor";
-import { useActions } from "../../../hooks/useActions";
-import { IArticle } from "../../../types/article";
+
 type TProps = {
   favorited: boolean;
   favoritesCount: number;
@@ -12,47 +11,18 @@ type TProps = {
 };
 
 const Favorite: React.FC<TProps> = ({ favorited, favoritesCount, slug }) => {
-  const { articles } = useAppSelector((state) => state.articles);
-  const article = useAppSelector((state) => state.articles.article)!;
   const { isAuth } = useAppSelector((state) => state.user);
-  const { setArticles, setArticle } = useActions();
-  const changeArticle = (
-    articles: IArticle[],
-    article: IArticle,
-    slug: string,
-    favorited: boolean
-  ) => {
-    const newArticles = articles.map((article) => {
-      if (article.slug === slug) {
-        const newArticle = { ...article, favorited };
-        if (favorited) {
-          return { ...newArticle, favoritesCount: article.favoritesCount + 1 };
-        }
-        return { ...newArticle, favoritesCount: article.favoritesCount - 1 };
-      }
-      return article;
-    });
-    setArticles(newArticles);
-    if (article.slug === slug) {
-      const newArticle = { ...article, favorited };
-      if (favorited) {
-        setArticle({
-          ...newArticle,
-          favoritesCount: article.favoritesCount + 1,
-        });
-        return;
-      }
-      setArticle({ ...newArticle, favoritesCount: article.favoritesCount - 1 });
-    }
-  };
+  const { page, pageSize } = useAppSelector((state) => state.articles);
+
   const clickHandler = () => {
     if (favorited) {
       unfavorite(slug);
     } else {
       favorite(slug);
     }
-    changeArticle(articles, article, slug, !favorited);
+    getArticles(pageSize, page);
   };
+
   return (
     <button
       disabled={!isAuth}

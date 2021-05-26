@@ -7,8 +7,7 @@ import "./header.scss";
 import Menu from "./menu";
 
 const Header: React.FC = () => {
-  const pageSize = useAppSelector((state) => state.articles.pageSize);
-  const page = useAppSelector((state) => state.articles.page);
+  const { page, pageSize } = useAppSelector((state) => state.articles);
 
   return (
     <header className="header">

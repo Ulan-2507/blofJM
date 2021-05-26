@@ -1,22 +1,19 @@
+import { IAuthor } from "./article";
+
 export interface IAuthError {
   email?: string[];
   username?: string[];
   password?: string[];
   message?: string;
 }
-export interface IUserRegData {
-  username: string;
-  email: string;
-  password: string;
-}
 export interface IUserAuthData {
   email: string;
   password: string;
 }
-export interface IUserUpdateData {
+export interface IUserRegData extends IUserAuthData {
   username: string;
-  email: string;
-  password: string;
+}
+export interface IUserUpdateData extends IUserRegData {
   bio?: string;
   image?: string;
 }
@@ -33,6 +30,9 @@ export interface IUser {
   bio: null | string;
   image: null | string;
   token: string;
+}
+export interface IProfile {
+  profile: IAuthor;
 }
 export type TUserState = {
   user: IUser | null;

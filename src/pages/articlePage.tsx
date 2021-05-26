@@ -6,8 +6,8 @@ import { useAppSelector } from "../hooks/useAppSelelctor";
 
 const ArticlePage: React.FC = () => {
   const { slug }: any = useParams();
-  const article = useAppSelector((state) => state.articles.article);
-  const isLoading = useAppSelector((state) => state.articles.isLoading);
+  const { article, isLoading } = useAppSelector((state) => state.articles);
+
   useEffect(() => {
     getArticle(slug);
   }, [slug]);

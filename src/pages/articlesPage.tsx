@@ -7,8 +7,7 @@ import Article from "../components/article";
 import PaginationBar from "../components/pagination";
 
 const ArticlesPage: React.FC = () => {
-  const articles = useAppSelector((state) => state.articles.articles);
-  const isLoading = useAppSelector((state) => state.articles.isLoading);
+  const { articles, isLoading } = useAppSelector((state) => state.articles);
 
   return (
     <React.Fragment>

@@ -9,8 +9,7 @@ import defaultPhoto from "../../img/defaultPhoto.jpg";
 import AuthLinks from "./auth-links";
 
 const Menu: React.FC = () => {
-  const user = useAppSelector((state) => state.user.user);
-  const isAuth = useAppSelector((state) => state.user.isAuth);
+  const { user, isAuth } = useAppSelector((state) => state.user);
   const [showMenu, setShowMenu] = useState(false);
   const showHandler = () => {
     setShowMenu((showMenu) => !showMenu);

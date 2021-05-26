@@ -3,7 +3,7 @@ import { useAppSelector } from "../../hooks/useAppSelelctor";
 import "./spinner.scss";
 
 const Spinner: React.FC = () => {
-  const isLoading = useAppSelector((state) => state.articles.isLoading);
+  const { isLoading } = useAppSelector((state) => state.articles);
   if (isLoading) {
     return (
       <div className="loader">

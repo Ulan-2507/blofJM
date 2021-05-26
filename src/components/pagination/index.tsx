@@ -9,9 +9,9 @@ import { useHistory } from "react-router-dom";
 
 const PaginationBar: React.FC = () => {
   const { setPage, setPageSize } = useActions();
-  const page = useAppSelector((state) => state.articles.page);
-  const pageSize = useAppSelector((state) => state.articles.pageSize);
-  const isLoading = useAppSelector((state) => state.articles.isLoading);
+  const { page, pageSize, isLoading } = useAppSelector(
+    (state) => state.articles
+  );
 
   const onChangeHandler = (num: number): void => {
     setPage(num);
