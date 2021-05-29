@@ -30,7 +30,7 @@ const PaginationBar: React.FC = () => {
       {!isLoading && (
         <Pagination
           size="small"
-          total={500}
+          total={5000}
           onChange={onChangeHandler}
           current={page}
           pageSize={pageSize}
