@@ -1,7 +1,10 @@
 $color-main: #2196F3;
 .loader {
+    position: relative;
+    bottom: 400px;
     display: flex;
     justify-content: center;
+    z-index: 8;
 }
 .lds-ellipsis {
     display: inline-block;

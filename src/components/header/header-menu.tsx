@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { logOut } from "../../api/user";
-import { RouteURLS } from "../../helpers/route-urls";
+import { RouteURLS } from "../constants/route-urls";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
 import cn from "classnames";
 

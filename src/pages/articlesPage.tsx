@@ -4,7 +4,7 @@ import { useAppSelector } from "../hooks/useAppSelelctor";
 import { v4 as uuidv4 } from "uuid";
 
 import Article from "../components/article";
-import PaginationBar from "../components/pagination";
+import PaginationBar from "../components/paginationBar";
 
 const ArticlesPage: React.FC = () => {
   const { articles, isLoading } = useAppSelector((state) => state.articles);

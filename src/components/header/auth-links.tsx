@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { RouteURLS } from "../../helpers/route-urls";
+import { RouteURLS } from "../constants/route-urls";
 import cn from "classnames";
 type PropsType = {
   showMenu: boolean;

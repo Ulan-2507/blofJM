@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { RouteURLS } from "../../helpers/route-urls";
+import { RouteURLS } from "../constants/route-urls";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormField from "./formField";
@@ -7,6 +7,9 @@ import FormWrapper from "./formWrapper";
 import { Schema } from "../../helpers/validation-ruls";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
 import { registerUser } from "../../api/user";
+import { useHistory } from "react-router-dom";
+import { useActions } from "../../hooks/useActions";
+import FieldsNames from "../constants/fieldsNames";
 
 interface FormData {
   username: string;
@@ -18,19 +21,23 @@ interface FormData {
 
 const SignUp: React.FC = () => {
   const serverErrors = useAppSelector((state) => state.user.errors);
-  const { isFetch } = useAppSelector((state) => state.user);
+  const { errorCode, isFetch, userSuccess } = useAppSelector(
+    (state) => state.user
+  );
+  const { setUserSuccess } = useActions();
+  const history = useHistory();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setFocus,
+    watch,
   } = useForm<FormData>({
     mode: "onBlur",
     resolver: yupResolver(Schema.signUp),
   });
 
   const onSubmit = handleSubmit((formValues: FormData) => {
-    console.log(formValues);
     registerUser({
       username: formValues.username,
       email: formValues.email.toLowerCase(),
@@ -38,10 +45,18 @@ const SignUp: React.FC = () => {
     });
   });
 
+  let checked = watch(FieldsNames.ACCEPT_TERMS);
+
   useEffect(() => {
-    setFocus("username");
+    setFocus(FieldsNames.USERNAME);
   }, [setFocus]);
 
+  useEffect(() => {
+    if (userSuccess) {
+      history.push(`${RouteURLS.ARTICLES}`);
+      setUserSuccess(false);
+    }
+  }, [history, userSuccess, setUserSuccess]);
   return (
     <FormWrapper
       route={RouteURLS.SIGN_IN}
@@ -52,42 +67,44 @@ const SignUp: React.FC = () => {
       linkText="Already have an account? "
       isFetch={isFetch}
       form={"user"}
+      checked={!!checked}
+      code={errorCode}
     >
       <FormField
-        register={register("username")}
+        register={register(FieldsNames.USERNAME)}
         type="text"
-        name="username"
+        name={FieldsNames.USERNAME}
         label="Username"
         helperText={errors?.username?.message}
         serverErrors={serverErrors?.username?.join(". ")}
       />
       <FormField
-        register={register("email")}
+        register={register(FieldsNames.EMAIL)}
         type="email"
-        name="email"
+        name={FieldsNames.EMAIL}
         label="Email"
         helperText={errors?.email?.message}
         serverErrors={serverErrors?.email?.join(". ")}
       />
       <FormField
-        register={register("password")}
+        register={register(FieldsNames.PASSWORD)}
         type="password"
-        name="password"
+        name={FieldsNames.PASSWORD}
         label="Password"
         helperText={errors?.password?.message}
       />
       <FormField
-        register={register("confirmPassword")}
+        register={register(FieldsNames.CONFIRM_PASSWORD)}
         type="password"
-        name="confirmPassword"
+        name={FieldsNames.CONFIRM_PASSWORD}
         label="Repeat Password"
         helperText={errors?.confirmPassword?.message}
       />
       <hr />
       <FormField
-        register={register("acceptTerms")}
+        register={register(FieldsNames.ACCEPT_TERMS)}
         type="checkbox"
-        name="acceptTerms"
+        name={FieldsNames.ACCEPT_TERMS}
         label="I agree to the processing of my personal information"
         helperText={errors?.acceptTerms?.message}
       />

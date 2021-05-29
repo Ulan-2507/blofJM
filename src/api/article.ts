@@ -68,10 +68,10 @@ export const deleteArticle = (slug: string): void => {
   axiosApiInstance.delete(`/articles/${slug}`);
 };
 
-export const favorite = async (slug: string): Promise<void> => {
+export const favorite = async (slug: string) => {
   try {
     const response = await axiosApiInstance.post(`/articles/${slug}/favorite`);
-    store.dispatch(setArticle(response.data.article));
+    return response.data.article;
   } catch (error) {
     if (error.response) {
       store.dispatch(setErrorCode(error.response.status));
@@ -80,12 +80,12 @@ export const favorite = async (slug: string): Promise<void> => {
   }
 };
 
-export const unfavorite = async (slug: string): Promise<void> => {
+export const unfavorite = async (slug: string) => {
   try {
     const response = await axiosApiInstance.delete(
       `/articles/${slug}/favorite`
     );
-    store.dispatch(setArticle(response.data.article));
+    return response.data.article;
   } catch (error) {
     if (error.response) {
       store.dispatch(setErrorCode(error.response.status));

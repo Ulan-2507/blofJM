@@ -7,9 +7,11 @@ import { Schema } from "../../helpers/validation-ruls";
 import { IUserUpdateData } from "../../types/user";
 import { updateUser } from "../../api/user";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
+import { setUserValues } from "../../helpers/handlers";
+import FieldsNames from "../constants/fieldsNames";
 
 const Profile: React.FC = () => {
-  const { user, isFetch, success } = useAppSelector((state) => state.user);
+  const { user, isFetch, userSuccess } = useAppSelector((state) => state.user);
   const serverErrors = useAppSelector((state) => state.user.errors);
 
   const {
@@ -18,20 +20,18 @@ const Profile: React.FC = () => {
     formState: { errors },
     setValue,
     setFocus,
-  } = useForm<IUserUpdateData>({
+  } = useForm({
     resolver: yupResolver(Schema.profile),
   });
 
   useEffect(() => {
     if (user) {
-      setValue("username", user.username);
-      setValue("email", user.email);
-      setValue("image", user.image || "");
+      setUserValues(setValue, user);
     }
   }, [setValue, user]);
 
   useEffect(() => {
-    setFocus("username");
+    setFocus(FieldsNames.USERNAME);
   }, [setFocus]);
 
   const onSubmit = handleSubmit(async (formValues: IUserUpdateData) => {
@@ -51,37 +51,37 @@ const Profile: React.FC = () => {
       onSubmit={onSubmit}
       title="Edit Profile"
       btnTitle="Save"
-      success={success}
+      success={userSuccess}
       isFetch={isFetch}
       form={"user"}
     >
       <FormField
-        register={register("username")}
+        register={register(FieldsNames.USERNAME)}
         type="text"
-        name="username"
+        name={FieldsNames.USERNAME}
         label="Username"
         helperText={errors?.username?.message}
         serverErrors={serverErrors ? serverErrors.username?.join(". ") : null}
       />
       <FormField
-        register={register("email")}
+        register={register(FieldsNames.EMAIL)}
         type="email"
-        name="email"
+        name={FieldsNames.EMAIL}
         label="Email"
         helperText={errors?.email?.message}
         serverErrors={serverErrors ? serverErrors.email?.join(". ") : null}
       />
       <FormField
-        register={register("password")}
+        register={register(FieldsNames.PASSWORD)}
         type="password"
-        name="password"
+        name={FieldsNames.PASSWORD}
         label="New Password"
         helperText={errors?.password?.message}
       />
       <FormField
-        register={register("image")}
+        register={register(FieldsNames.IMAGE)}
         type="url"
-        name="image"
+        name={FieldsNames.IMAGE}
         label=" Avatar image (url)"
         helperText={errors?.image?.message}
       />

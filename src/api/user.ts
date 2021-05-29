@@ -5,7 +5,7 @@ import {
   setAuthStatus,
   setUser,
   setErrorCode,
-  setSuccess,
+  setUserSuccess,
 } from "../slices/user";
 import { store } from "../store";
 import {
@@ -25,16 +25,16 @@ const handleResponse = async (
   data?: any
 ): Promise<void> => {
   try {
-    store.dispatch(setErrorCode(null));
-    store.dispatch(setErrors(null));
     store.dispatch(setFetchStatus(true));
     const response: TResponse = await handler(endPoint, data);
     store.dispatch(setUser(response.user));
     setToken(response.user.token);
     store.dispatch(setAuthStatus(true));
-    store.dispatch(setSuccess(true));
+    store.dispatch(setUserSuccess(true));
+    store.dispatch(setErrorCode(null));
+    store.dispatch(setErrors(null));
     setTimeout(() => {
-      store.dispatch(setSuccess(false));
+      store.dispatch(setUserSuccess(false));
     }, 2000);
   } catch (error) {
     if (error.response) {

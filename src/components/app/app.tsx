@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
-import { RouteURLS } from "../../helpers/route-urls";
+import { RouteURLS } from "../constants/route-urls";
 import PrivateRoute from "../PrivateRoute";
 
 import Header from "../header";
@@ -28,7 +28,6 @@ const App: React.FC = () => {
     <React.Fragment>
       <Header />
       <main className="main">
-        <Spinner />
         <Switch>
           <Route
             path={[RouteURLS.HOME, RouteURLS.ARTICLES]}
@@ -51,6 +50,7 @@ const App: React.FC = () => {
           />
         </Switch>
       </main>
+      <Spinner />
     </React.Fragment>
   );
 };

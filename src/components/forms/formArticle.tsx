@@ -5,12 +5,14 @@ import { useAppSelector } from "../../hooks/useAppSelelctor";
 import FormField from "./formField";
 import FormWrapper from "./formWrapper";
 import "./form.scss";
-import { TITLE, DESCRIPTION, TEXT } from "../../helpers/error-messages";
+import { TITLE, DESCRIPTION, TEXT } from "../constants/error-messages";
 import { useHistory } from "react-router";
-import { RouteURLS } from "../../helpers/route-urls";
+import { RouteURLS } from "../constants/route-urls";
 import { v4 as uuidv4 } from "uuid";
 import useDataStore from "../../hooks/useDataStore";
 import { useActions } from "../../hooks/useActions";
+import FieldsNames from "../constants/fieldsNames";
+import { setArticleValues } from "../../helpers/handlers";
 
 const ArticleForm: React.FC = () => {
   const article = useAppSelector((state) => state.articles.article)!;
@@ -42,14 +44,12 @@ const ArticleForm: React.FC = () => {
   });
   useEffect(() => {
     if (isEdit) {
-      setValue("title", article.title, { shouldValidate: true });
-      setValue("description", article.description, { shouldValidate: true });
-      setValue("textarea", article.body, { shouldValidate: true });
+      setArticleValues(setValue, article);
     }
   }, [isEdit, article, setValue]);
 
   useEffect(() => {
-    setFocus("title");
+    setFocus(FieldsNames.TITLE);
   }, [setFocus]);
 
   useEffect(() => {
@@ -69,21 +69,21 @@ const ArticleForm: React.FC = () => {
       form={"article"}
     >
       <FormField
-        register={register("title", {
+        register={register(FieldsNames.TITLE, {
           required: `${TITLE.errorMessage}`,
         })}
         type="text"
-        name="title"
+        name={FieldsNames.TITLE}
         label="Title"
         helperText={errors?.title?.message}
         serverErrors={error ? error : null}
       />
       <FormField
-        register={register("description", {
+        register={register(FieldsNames.DESCRIPTION, {
           required: `${DESCRIPTION.errorMessage}`,
         })}
         type="text"
-        name="description"
+        name={FieldsNames.DESCRIPTION}
         label="Short description"
         helperText={errors?.description?.message}
         serverErrors={error ? error : null}
@@ -92,10 +92,10 @@ const ArticleForm: React.FC = () => {
         Text
         <textarea
           className="form__input form__input--textarea"
-          {...register("textarea", {
+          {...register(FieldsNames.TEXTAREA, {
             required: `${TEXT.errorMessage}`,
           })}
-          name="textarea"
+          name={FieldsNames.TEXTAREA}
           placeholder="text"
         ></textarea>
         {!!errors.textarea && (

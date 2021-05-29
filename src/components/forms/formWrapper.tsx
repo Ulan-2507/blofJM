@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./form.scss";
 import cn from "classnames";
+import { ErrorMessages } from "../constants/error-messages";
 
 type TProps = {
   route?: string;
@@ -13,7 +14,10 @@ type TProps = {
   success?: boolean;
   isFetch?: boolean;
   isSending?: boolean;
+  checked?: boolean;
   form: "user" | "article";
+  code?: number | null;
+  createForm?: boolean;
 };
 const FormWrapper: React.FC<TProps> = ({
   children,
@@ -27,7 +31,11 @@ const FormWrapper: React.FC<TProps> = ({
   isFetch,
   isSending,
   form,
+  checked,
+  code,
 }) => {
+  const disabled =
+    form === "user" && btnTitle === "create" ? !checked : isSending;
   return (
     <div
       className={cn(
@@ -40,7 +48,7 @@ const FormWrapper: React.FC<TProps> = ({
       <form className="form__wrap" onSubmit={onSubmit}>
         {children}
         <button
-          disabled={isFetch || isSending}
+          disabled={disabled || isFetch}
           className={cn(
             "form__submit",
             { "form__submit--success": success },
@@ -56,6 +64,9 @@ const FormWrapper: React.FC<TProps> = ({
           {linkText}
           <NavLink to={route ? route : ""}>{linkTitle}</NavLink>
         </p>
+      )}
+      {!!code && (
+        <p className="form__text form__error">{ErrorMessages[`${code}`]}</p>
       )}
     </div>
   );

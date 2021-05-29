@@ -17,6 +17,7 @@ import {
   setErrors,
   setUser,
   setErrorCode,
+  setUserSuccess,
 } from "../slices/user";
 
 import type { AppDispatch } from "../store";
@@ -40,6 +41,7 @@ export const useActions = () => {
       setErrors,
       setUser,
       setErrorCode,
+      setUserSuccess,
     },
     dispatch
   );

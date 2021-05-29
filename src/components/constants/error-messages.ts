@@ -33,3 +33,13 @@ export const DESCRIPTION = {
 export const TEXT = {
   errorMessage: "Text is required!",
 };
+
+interface Messages {
+  [propName: string]: string;
+}
+export const ErrorMessages: Messages = {
+  "422": "Пользователь с таким Именем или Почтой уже существует",
+  "401": "Запрос требует аутентификации",
+  "403": "У Вас нет разрешений на выполнение действия",
+  "404": "Не удается найти ресурс для выполнения запроса",
+};

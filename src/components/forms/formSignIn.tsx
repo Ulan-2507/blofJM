@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { RouteURLS } from "../../helpers/route-urls";
+import { RouteURLS } from "../constants/route-urls";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import FormField from "./formField";
@@ -9,6 +9,7 @@ import { useAppSelector } from "../../hooks/useAppSelelctor";
 import { login } from "../../api/user";
 import { IUserAuthData } from "../../types/user";
 import { useHistory } from "react-router";
+import FieldsNames from "../constants/fieldsNames";
 
 const SignIn: React.FC = () => {
   const { isFetch, isAuth } = useAppSelector((state) => state.user);
@@ -36,7 +37,7 @@ const SignIn: React.FC = () => {
     }
   }, [isAuth, history]);
   useEffect(() => {
-    setFocus("email");
+    setFocus(FieldsNames.EMAIL);
   }, [setFocus]);
 
   return (
@@ -51,16 +52,16 @@ const SignIn: React.FC = () => {
       form={"user"}
     >
       <FormField
-        register={register("email")}
+        register={register(FieldsNames.EMAIL)}
         type="email"
-        name="email"
+        name={FieldsNames.EMAIL}
         label="Email"
         helperText={errors?.email?.message}
       />
       <FormField
-        register={register("password")}
+        register={register(FieldsNames.PASSWORD)}
         type="password"
-        name="password"
+        name={FieldsNames.PASSWORD}
         label="Password"
         helperText={errors?.password?.message}
         serverErrors={serverErrors ? "email or password is invalid" : null}

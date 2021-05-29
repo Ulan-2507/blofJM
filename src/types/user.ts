@@ -40,7 +40,7 @@ export type TUserState = {
   isFetch: boolean;
   errors: null | IAuthError;
   errorCode: null | number;
-  success: boolean;
+  userSuccess: boolean;
 };
 
 export enum UserEndPoints {

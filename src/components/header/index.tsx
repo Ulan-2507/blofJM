@@ -1,10 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { RouteURLS } from "../../helpers/route-urls";
+import { RouteURLS } from "../constants/route-urls";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
 
 import "./header.scss";
-import Menu from "./menu";
+import Menu from "./header-menu";
 
 const Header: React.FC = () => {
   const { page, pageSize } = useAppSelector((state) => state.articles);

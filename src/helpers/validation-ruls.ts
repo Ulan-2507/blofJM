@@ -5,7 +5,7 @@ import {
   IMAGE,
   PASSWORD,
   USERNAME,
-} from "./error-messages";
+} from "../components/constants/error-messages";
 import * as yup from "yup";
 
 export const Schema = {

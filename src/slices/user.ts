@@ -7,7 +7,7 @@ const initialState: TUserState = {
   isFetch: false,
   errors: null,
   errorCode: null,
-  success: false,
+  userSuccess: false,
 };
 
 const userSlice = createSlice({
@@ -29,8 +29,8 @@ const userSlice = createSlice({
     setUser(state, action: PayloadAction<IUser>) {
       state.user = action.payload;
     },
-    setSuccess(state, action: PayloadAction<boolean>) {
-      state.success = action.payload;
+    setUserSuccess(state, action: PayloadAction<boolean>) {
+      state.userSuccess = action.payload;
     },
   },
 });
@@ -40,7 +40,7 @@ export const {
   setAuthStatus,
   setErrors,
   setUser,
-  setSuccess,
+  setUserSuccess,
   setErrorCode,
 } = userSlice.actions;
 

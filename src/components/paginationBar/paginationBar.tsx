@@ -4,7 +4,7 @@ import { Pagination } from "antd";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
 import { useActions } from "../../hooks/useActions";
 import { getArticles } from "../../api/article";
-import { RouteURLS } from "../../helpers/route-urls";
+import { RouteURLS } from "../constants/route-urls";
 import { useHistory } from "react-router-dom";
 
 const PaginationBar: React.FC = () => {
