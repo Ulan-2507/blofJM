@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactMarkdown from "react-markdown";
-import { useHistory, NavLink } from "react-router-dom";
-import { deleteArticle } from "../../api/article";
+import { NavLink } from "react-router-dom";
 import { RouteURLS } from "../constants/route-urls";
-import { useActions } from "../../hooks/useActions";
-import { useAppSelector } from "../../hooks/useAppSelelctor";
 import { IArticle } from "../../types/article";
 import Modal from "../modal-window";
 
@@ -12,26 +9,21 @@ import Article from "./article";
 
 type PropsType = {
   article: IArticle;
+  isOwnArticle: boolean;
+  setEdit: (value: boolean) => void;
+  showHandler: () => void;
+  deleteHandler: () => void;
+  showModal: boolean;
 };
 
-const FullArticle: React.FC<PropsType> = ({ article }) => {
-  const currentAuthor = useAppSelector((state) => state.user.user?.username);
-  const { setEdit } = useActions();
-  const [showModal, setShowModal] = useState(false);
-  const history = useHistory();
-
-  const showHandler = () => {
-    setShowModal((showModal) => !showModal);
-  };
-
-  const deleteHandler = () => {
-    deleteArticle(article.slug);
-    setShowModal((showModal) => !showModal);
-    history.push(RouteURLS.ARTICLES);
-  };
-
-  const isOwnArticle = currentAuthor === article?.author.username;
-
+const FullArticle: React.FC<PropsType> = ({
+  article,
+  isOwnArticle,
+  setEdit,
+  showHandler,
+  deleteHandler,
+  showModal,
+}) => {
   return (
     <Article data={article} isFull={true}>
       <div className="article__row">

@@ -5,7 +5,7 @@ import { RouteURLS } from "../constants/route-urls";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
 import cn from "classnames";
 
-import defaultPhoto from "../../img/defaultPhoto.jpg";
+import defaultPhoto from "./defaultPhoto.jpg";
 import AuthLinks from "./auth-links";
 
 const Menu: React.FC = () => {

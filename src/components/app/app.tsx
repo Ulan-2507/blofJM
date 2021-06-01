@@ -4,17 +4,17 @@ import { RouteURLS } from "../constants/route-urls";
 import PrivateRoute from "../PrivateRoute";
 
 import Header from "../header";
-import ArticlesPage from "../../pages/articlesPage";
-import ArticlePage from "../../pages/articlePage";
 import Spinner from "../spinner";
 
-import SignUp from "../forms/formSignUp";
-import SignIn from "../forms/formSignIn";
-import Profile from "../forms/formProfile";
-import ArticleForm from "../forms/formArticle";
 
 import { getCurrentUser } from "../../api/user";
 import { getToken } from "../../api";
+import ProfilePage from "../../pages/profilePage";
+import SignInPage from "../../pages/signInPage";
+import SignUpPage from "../../pages/signUpPage";
+import ArticleEditPage from "../../pages/articleEditPage";
+import FullArticlePage from "../../pages/FullArticlePage";
+import ArticlesPage from "../../pages/articlesPage";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -34,19 +34,19 @@ const App: React.FC = () => {
             exact
             component={ArticlesPage}
           />
-          <Route path={RouteURLS.EDIT_ARTICLE} exact component={ArticleForm} />
-          <Route path={RouteURLS.ARTICLE} component={ArticlePage} />
-          <Route path={RouteURLS.SIGN_UP} component={SignUp} />
-          <Route path={RouteURLS.SIGN_IN} component={SignIn} />
+          <Route path={RouteURLS.EDIT_ARTICLE} exact component={ArticleEditPage} />
+          <Route path={RouteURLS.ARTICLE} component={FullArticlePage} />
+          <Route path={RouteURLS.SIGN_UP} component={SignUpPage} />
+          <Route path={RouteURLS.SIGN_IN} component={SignInPage} />
           <PrivateRoute
             path={RouteURLS.PROFILE}
             exact={true}
-            component={Profile}
+            component={ProfilePage}
           />
           <PrivateRoute
             path={RouteURLS.NEW_ARTICLE}
             exact={true}
-            component={ArticleForm}
+            component={ArticleEditPage}
           />
         </Switch>
       </main>

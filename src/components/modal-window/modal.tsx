@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import icon from "../../img/Attention.svg";
+import icon from "./Attention.svg";
 
 import "./modal.scss";
 import ReactDOM from "react-dom";

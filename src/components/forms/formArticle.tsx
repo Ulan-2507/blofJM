@@ -1,47 +1,51 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { createArticle } from "../../api/article";
-import { useAppSelector } from "../../hooks/useAppSelelctor";
 import FormField from "./formField";
 import FormWrapper from "./formWrapper";
 import "./form.scss";
 import { TITLE, DESCRIPTION, TEXT } from "../constants/error-messages";
-import { useHistory } from "react-router";
-import { RouteURLS } from "../constants/route-urls";
 import { v4 as uuidv4 } from "uuid";
-import useDataStore from "../../hooks/useDataStore";
-import { useActions } from "../../hooks/useActions";
 import FieldsNames from "../constants/fieldsNames";
+import { useAppSelector } from "../../hooks/useAppSelelctor";
 import { setArticleValues } from "../../helpers/handlers";
+import {
+  UseFormSetValue,
+  DeepMap,
+  FieldError,
+  UseFormSetFocus,
+  UseFormRegister,
+  FieldValues,
+} from "react-hook-form/dist/types";
 
-const ArticleForm: React.FC = () => {
-  const article = useAppSelector((state) => state.articles.article)!;
-  const { isSending, error, success, isEdit } = useAppSelector(
+type PropsType = {
+  onSubmit: (
+    e?: React.BaseSyntheticEvent<object, any, any> | undefined
+  ) => Promise<void>;
+  register: UseFormRegister<FieldValues>;
+  setFocus: UseFormSetFocus<FieldValues>;
+  errors: DeepMap<FieldValues, FieldError>;
+  setValue: UseFormSetValue<FieldValues>;
+  data: string[];
+  add: () => void;
+  change: (value: string, index: number) => void;
+  remove: (index: number) => void;
+};
+
+const ArticleForm: React.FC<PropsType> = ({
+  onSubmit,
+  register,
+  errors,
+  data,
+  setValue,
+  add,
+  change,
+  remove,
+  setFocus,
+}) => {
+  const { isSending, error, isEdit } = useAppSelector(
     (state) => state.articles
   );
-  const initialValue = isEdit ? article.tagList : [];
-  const [data, add, change, remove] = useDataStore(initialValue);
-  const history = useHistory();
-  const { setSuccess, setEdit } = useActions();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setFocus,
-    setValue,
-  } = useForm({
-    mode: "onBlur",
-  });
-  const onSubmit = handleSubmit((formValues) => {
-    createArticle({
-      article: {
-        title: formValues.title,
-        description: formValues.description,
-        body: formValues.textarea,
-        tagList: data,
-      },
-    });
-  });
+  const article = useAppSelector((state) => state.articles.article)!;
+
   useEffect(() => {
     if (isEdit) {
       setArticleValues(setValue, article);
@@ -51,14 +55,6 @@ const ArticleForm: React.FC = () => {
   useEffect(() => {
     setFocus(FieldsNames.TITLE);
   }, [setFocus]);
-
-  useEffect(() => {
-    if (success && !isEdit) {
-      history.push(`${RouteURLS.ARTICLES}/${article.slug}`);
-      setSuccess(false);
-      setEdit(false);
-    }
-  }, [history, success, article, isEdit, setSuccess, setEdit]);
 
   return (
     <FormWrapper

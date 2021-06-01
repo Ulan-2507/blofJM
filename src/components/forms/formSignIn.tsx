@@ -1,41 +1,37 @@
 import React, { useEffect } from "react";
 import { RouteURLS } from "../constants/route-urls";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+
+import {
+  DeepMap,
+  FieldError,
+  UseFormRegister,
+  UseFormSetFocus,
+} from "react-hook-form";
 import FormField from "./formField";
 import FormWrapper from "./formWrapper";
-import { Schema } from "../../helpers/validation-ruls";
 import { useAppSelector } from "../../hooks/useAppSelelctor";
-import { login } from "../../api/user";
 import { IUserAuthData } from "../../types/user";
-import { useHistory } from "react-router";
 import FieldsNames from "../constants/fieldsNames";
 
-const SignIn: React.FC = () => {
-  const { isFetch, isAuth } = useAppSelector((state) => state.user);
-  const serverErrors = useAppSelector((state) => state.user.errors);
-  const history = useHistory();
+type PropsType = {
+  onSubmit: (
+    e?: React.BaseSyntheticEvent<object, any, any> | undefined
+  ) => Promise<void>;
+  register: UseFormRegister<IUserAuthData>;
+  setFocus: UseFormSetFocus<IUserAuthData>;
+  validError: DeepMap<IUserAuthData, FieldError>;
+};
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setFocus,
-  } = useForm<IUserAuthData>({
-    resolver: yupResolver(Schema.signIn),
-  });
+const SignInForm: React.FC<PropsType> = ({
+  onSubmit,
+  register,
+  validError,
+  setFocus,
+}) => {
+  const { isFetch, errors: serverErrors } = useAppSelector(
+    (state) => state.user
+  );
 
-  const onSubmit = handleSubmit(async (formValues: IUserAuthData) => {
-    await login({
-      email: formValues.email,
-      password: formValues.password,
-    });
-  });
-  useEffect(() => {
-    if (isAuth) {
-      history.push(RouteURLS.ARTICLES);
-    }
-  }, [isAuth, history]);
   useEffect(() => {
     setFocus(FieldsNames.EMAIL);
   }, [setFocus]);
@@ -56,17 +52,17 @@ const SignIn: React.FC = () => {
         type="email"
         name={FieldsNames.EMAIL}
         label="Email"
-        helperText={errors?.email?.message}
+        helperText={validError?.email?.message}
       />
       <FormField
         register={register(FieldsNames.PASSWORD)}
         type="password"
         name={FieldsNames.PASSWORD}
         label="Password"
-        helperText={errors?.password?.message}
+        helperText={validError?.password?.message}
         serverErrors={serverErrors ? "email or password is invalid" : null}
       />
     </FormWrapper>
   );
 };
-export default SignIn;
+export default SignInForm;

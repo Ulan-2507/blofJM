@@ -3,7 +3,7 @@ import "./article.scss";
 import format from "date-fns/format";
 import cn from "classnames";
 
-import defaultAvatar from "../../img/defaultPhoto.jpg";
+import defaultAvatar from "./defaultPhoto.jpg";
 import { IArticle } from "../../types/article";
 import { NavLink } from "react-router-dom";
 import { RouteURLS } from "../constants/route-urls";

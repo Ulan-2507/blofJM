@@ -1,62 +1,43 @@
 import React, { useEffect } from "react";
+import {
+  DeepMap,
+  FieldError,
+  FieldValues,
+  UseFormRegister,
+  UseFormSetFocus,
+} from "react-hook-form";
+import { useAppSelector } from "../../hooks/useAppSelelctor";
+
 import { RouteURLS } from "../constants/route-urls";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import FormField from "./formField";
 import FormWrapper from "./formWrapper";
-import { Schema } from "../../helpers/validation-ruls";
-import { useAppSelector } from "../../hooks/useAppSelelctor";
-import { registerUser } from "../../api/user";
-import { useHistory } from "react-router-dom";
-import { useActions } from "../../hooks/useActions";
 import FieldsNames from "../constants/fieldsNames";
 
-interface FormData {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  acceptTerms: string;
-}
+type PropsType = {
+  onSubmit: (
+    e?: React.BaseSyntheticEvent<object, any, any> | undefined
+  ) => Promise<void>;
+  register: UseFormRegister<FieldValues>;
+  setFocus: UseFormSetFocus<FieldValues>;
+  validError: DeepMap<FieldValues, FieldError>;
+  isChecked: boolean;
+};
 
-const SignUp: React.FC = () => {
-  const serverErrors = useAppSelector((state) => state.user.errors);
-  const { errorCode, isFetch, userSuccess } = useAppSelector(
+const SignUpForm: React.FC<PropsType> = ({
+  onSubmit,
+  register,
+  validError,
+  isChecked,
+  setFocus,
+}) => {
+  const { errorCode, isFetch, errors: serverErrors } = useAppSelector(
     (state) => state.user
   );
-  const { setUserSuccess } = useActions();
-  const history = useHistory();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setFocus,
-    watch,
-  } = useForm<FormData>({
-    mode: "onBlur",
-    resolver: yupResolver(Schema.signUp),
-  });
-
-  const onSubmit = handleSubmit((formValues: FormData) => {
-    registerUser({
-      username: formValues.username,
-      email: formValues.email.toLowerCase(),
-      password: formValues.password,
-    });
-  });
-
-  let checked = watch(FieldsNames.ACCEPT_TERMS);
 
   useEffect(() => {
     setFocus(FieldsNames.USERNAME);
   }, [setFocus]);
 
-  useEffect(() => {
-    if (userSuccess) {
-      history.push(`${RouteURLS.ARTICLES}`);
-      setUserSuccess(false);
-    }
-  }, [history, userSuccess, setUserSuccess]);
   return (
     <FormWrapper
       route={RouteURLS.SIGN_IN}
@@ -67,7 +48,7 @@ const SignUp: React.FC = () => {
       linkText="Already have an account? "
       isFetch={isFetch}
       form={"user"}
-      checked={!!checked}
+      checked={isChecked}
       code={errorCode}
     >
       <FormField
@@ -75,7 +56,7 @@ const SignUp: React.FC = () => {
         type="text"
         name={FieldsNames.USERNAME}
         label="Username"
-        helperText={errors?.username?.message}
+        helperText={validError?.username?.message}
         serverErrors={serverErrors?.username?.join(". ")}
       />
       <FormField
@@ -83,7 +64,7 @@ const SignUp: React.FC = () => {
         type="email"
         name={FieldsNames.EMAIL}
         label="Email"
-        helperText={errors?.email?.message}
+        helperText={validError?.email?.message}
         serverErrors={serverErrors?.email?.join(". ")}
       />
       <FormField
@@ -91,14 +72,14 @@ const SignUp: React.FC = () => {
         type="password"
         name={FieldsNames.PASSWORD}
         label="Password"
-        helperText={errors?.password?.message}
+        helperText={validError?.password?.message}
       />
       <FormField
         register={register(FieldsNames.CONFIRM_PASSWORD)}
         type="password"
         name={FieldsNames.CONFIRM_PASSWORD}
         label="Repeat Password"
-        helperText={errors?.confirmPassword?.message}
+        helperText={validError?.confirmPassword?.message}
       />
       <hr />
       <FormField
@@ -106,9 +87,9 @@ const SignUp: React.FC = () => {
         type="checkbox"
         name={FieldsNames.ACCEPT_TERMS}
         label="I agree to the processing of my personal information"
-        helperText={errors?.acceptTerms?.message}
+        helperText={validError?.acceptTerms?.message}
       />
     </FormWrapper>
   );
 };
-export default SignUp;
+export default SignUpForm;
